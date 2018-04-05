@@ -1,0 +1,129 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+<div class="app">
+    <chart></chart>
+  </div>
+  <script>
+const chartComponent = {
+  data() {
+      return {
+          //For VM Data
+        getAnalyticList: [{
+          chartNames: [
+            'Protected',
+            'Unprotected',
+            'Protected Inactive'
+          ],
+          chartData: [12, 20, 30]
+        },       
+        ],
+        rowIndex: 0,
+            //For Volume Data
+        getAnalyticList1: [{
+          chartNames: [
+            'Protected',
+            'Unprotected',
+            'Protected Inactive'
+          ],
+          chartData: [0, 40, 20]
+        },       
+        ],
+        rowIndex1: 0,
+            //For DB Data
+        getAnalyticList2: [{
+          chartNames: [
+            'Protected',
+            'Unprotected',
+            'Protected Inactive'
+          ],
+          chartData: [30, 0, 12]
+        },       
+        ],
+        rowIndex2: 0
+      }
+    },
+    template: `
+    <div>
+    <table>
+    <td><h4><center>VM </center></h4><canvas id="myChart" width="300px" height="300px"></canvas></td>
+    <td><h4><center>Volume </center></h4><canvas id="myChart1" width="300px" height="300px"></canvas></td>
+    <td><h4><center>DB </center></h4><canvas id="myChart2" width="300px" height="300px"></canvas></td>
+     </table>
+    </div>
+  `,
+    methods: {
+      startChart: function() {
+        var ctx = document.getElementById("myChart");
+        var myDoughnut = this.myChart =  new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: this.getAnalyticList[this.rowIndex].chartNames,
+            datasets: [{
+              data: this.getAnalyticList[this.rowIndex].chartData,
+              backgroundColor: [
+                'rgba(255,140,0)',
+                'rgba(54, 162, 235, 0.9)',
+                'rgba(176,224,230)',
+              ]
+            }]
+          }
+        })
+      },
+      startChart1: function() {
+        var ctx1 = document.getElementById("myChart1");
+        var myDoughnut = this.myChart1 =  new Chart(ctx1, {
+          type: 'doughnut',
+          data: {
+            labels: this.getAnalyticList1[this.rowIndex1].chartNames,
+            datasets: [{
+              data: this.getAnalyticList1[this.rowIndex1].chartData,
+              backgroundColor: [
+                'rgba(255,140,0)',
+                'rgba(54, 162, 235, 0.9)',
+                'rgba(176,224,230)',
+              ]
+            }]
+          }
+        })
+      },
+      startChart2: function() {
+        var ctx2 = document.getElementById("myChart2");
+        var myDoughnut = this.myChart2 =  new Chart(ctx2, {
+          type: 'doughnut',
+          data: {
+            labels: this.getAnalyticList2[this.rowIndex2].chartNames,
+            datasets: [{
+              data: this.getAnalyticList2[this.rowIndex2].chartData,
+              backgroundColor: [
+                'rgba(255,140,0)',
+                'rgba(54, 162, 235, 0.9)',
+                'rgba(176,224,230)',
+              ]
+            }]
+          },
+        })
+      },
+    },
+    mounted() {
+      this.startChart();
+      this.startChart1();
+      this.startChart2();
+    }
+}
+
+// Instantiating a vue component
+new Vue({
+  el: '.app',
+  components: {
+    chart: chartComponent
+  }
+})
+</script>
+
+<style>
+        div {
+       width: 500px;
+       height: 500px;
+    }
+</style>
+
